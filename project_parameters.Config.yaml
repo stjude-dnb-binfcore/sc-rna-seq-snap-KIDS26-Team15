@@ -16,7 +16,17 @@ PIPELINE: "Standard sc-/sn-RNA-Seq Analysis in 10X Genomics data"
 START_DATE: "10/15/2024"
 COMPLETION_DATE: "ONGOING"
 
-# the following parameters are set up as default values and/or are specific for the following modules: 
+# Resource profile for WDL/Sprocket orchestration (Phase 1+).
+# `scripts/estimate-snap-resources.R --update-yaml` refreshes these from metadata.
+resource_profile:
+  num_samples: null                      # null = count rows in project_metadata.tsv
+  estimated_cells_per_sample: 50000    # baseline snap default (~8 samples x 50k cells)
+  total_estimated_cells: null            # computed: num_samples * estimated_cells_per_sample
+  resource_tier: "default"               # default | large | xlarge
+  scale_factor: 1
+  container_image: null                  # null = <root_dir>/rstudio_4.4.0_seurat_4.4.0_latest.sif
+
+# the following parameters are set up as default values and/or are specific for the following modules:
 # `./analyses/fastqc-analysis`
 # FASTQ paths to the fastqc files with format: `path1/*R2*.fastq.gz` are extracted from the `metadata_dir`.
 # No need to manually define variables

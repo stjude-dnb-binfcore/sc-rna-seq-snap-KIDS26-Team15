@@ -1,0 +1,20 @@
+# Sprocket engine config for sc-rna-seq-snap on St. Jude HPC (LSF + Apptainer/Singularity).
+# Update container.image and queue names for your project/account.
+
+[run]
+backend = "default"
+max_concurrent_runs = 50
+
+[run.backends.default]
+type = "lsf_apptainer"
+max_scatter_concurrency = 200
+job_name_prefix = "snap"
+
+[run.backends.default.default_lsf_queue]
+name = "standard"
+max_cpu_per_task = 24
+max_memory_per_task = "512 GiB"
+
+[run.backends.default.container]
+# Override per-project via workflow input container_image when tasks use singularity exec directly.
+image = "/path/to/sc-rna-seq-snap/rstudio_4.4.0_seurat_4.4.0_latest.sif"
